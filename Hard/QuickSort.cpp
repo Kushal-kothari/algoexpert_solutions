@@ -25,18 +25,23 @@ int partition(vector<int>& array, int left, int right)
     swap(array[left], array[randIdx]);
 
     int pivot = array[left];
-    int lt = left;
-
-    // all in [left + 1, lt] < pivot
-    // all in [lt + 1, i] >= pivot
-    for (int i = left + 1; i <= right; i++)
+    int i = left + 1;
+    int j = right;
+    while (i <= j)
     {
-        if (array[i] < pivot)
+        if (array[i] > pivot && array[j] < pivot)
         {
-            lt++;
-            swap(array[i], array[lt]);
+            swap(array[i], array[j]);
+        }
+        if (array[i] <= pivot)
+        {
+            i++;
+        }
+        if (array[j] >= pivot)
+        {
+            j--;
         }
     }
-    swap(array[left], array[lt]);
-    return lt;
+    swap(array[left], array[j]);
+    return j;
 }
